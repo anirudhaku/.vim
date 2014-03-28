@@ -37,3 +37,6 @@
 [submodule "bundle/vim-session"]
 	path = bundle/vim-session
 	url = https://github.com/xolox/vim-session.git
+[submodule "bundle/gundo.vim"]
+	path = bundle/gundo.vim
+	url = http://github.com/sjl/gundo.vim.git

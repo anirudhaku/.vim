@@ -55,6 +55,12 @@ let g:tex_flavor='latex'
 
 " Set default output format for vim-latex to pdf...
 let g:Tex_DefaultTargetFormat = 'pdf'
+
+" use luatex to compile tex to pdf...
+let g:Tex_CompileRule_pdf = 'lualatex -interaction=nonstopmode -file-line-error-style $*'
+
+" disable math conversion using conceal (slows down vim)...
+let g:tex_conceal = ""
 " }]
 
 " INDENTLINE SETTINGS [{
@@ -90,8 +96,17 @@ let g:lightline = {
 " YCM settings... [{
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 
+" disable YCM for tex files...
+let g:ycm_filetype_blacklist = {
+    \       'tex' : 1,
+    \       'conque_term' : 1
+    \   }
+
 " Mapping F12 to GoTo...
 noremap <F12>   :YcmCompleter GoTo<CR>
+
+" disable auto completer (complete on <C-space>)...
+let g:ycm_auto_trigger = 0
 " }]
 
 " VIM-SESSION settings... [{
@@ -178,3 +193,7 @@ aug CSV_Editing
 aug end
 " }]
 
+" VIM-JSON settings... [{
+" disable concealing (its an irritating feature)...
+let g:vim_json_syntax_conceal = 0
+" }]

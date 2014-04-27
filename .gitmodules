@@ -9,7 +9,8 @@
 	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule "bundle/indentLine"]
 	path = bundle/indentLine
-	url = https://github.com/Yggdroot/indentLine.git
+    url = https://github.com/Yggdroot/indentLine.git
+    ignore = dirty
 [submodule "bundle/vim-endwise"]
 	path = bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
@@ -34,6 +35,7 @@
 [submodule "bundle/vim-ruby"]
 	path = bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+    ignore = dirty
 [submodule "bundle/vim-session"]
 	path = bundle/vim-session
 	url = https://github.com/xolox/vim-session.git

@@ -107,6 +107,10 @@ noremap <F12>   :YcmCompleter GoTo<CR>
 
 " disable auto completer (complete on <C-space>)...
 let g:ycm_auto_trigger = 0
+
+" hide the annoying preview window after completion...
+let g:ycm_autoclose_preview_window_after_completion = 1
+
 " }]
 
 " VIM-SESSION settings... [{

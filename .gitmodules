@@ -41,4 +41,4 @@
 	url = https://github.com/xolox/vim-session.git
 [submodule "bundle/gundo.vim"]
 	path = bundle/gundo.vim
-	url = http://github.com/sjl/gundo.vim.git
+	url = https://github.com/sjl/gundo.vim.git

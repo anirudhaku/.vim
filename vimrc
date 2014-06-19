@@ -221,3 +221,13 @@ endfunction
 
 command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
+
+function RefreshCscope(...)
+    let l:find_args = ". -iname '*." . join(a:000, "' -o -iname '*.") . "'"
+    echom l:find_args
+    execute "!find" l:find_args '> cscope.files'
+    !cscope -b -q
+    cs add cscope.out
+endfunction
+
+command -bar -nargs=* RefCs call RefreshCscope(<f-args>)

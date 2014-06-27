@@ -1,29 +1,14 @@
 set number	                                " turn on the line number display
 set background=dark                         " Set highlighting for dark background
 set nocompatible                            " We're running Vim, not Vi!
-set backspace=indent,eol,start              " 
+set backspace=indent,eol,start              " something something something
 set tabstop=4 shiftwidth=4 softtabstop=4    " my indentation preferences
-set expandtab
-set laststatus=2
+set expandtab                               " expand tabs to spaces
+set laststatus=2                            " always show status line
+set hlsearch                                " highlight search results
+set hidden                                  " allow hidden buffers
 
 filetype off    " apparently, needed before calling pathogen#infect()
-
-" TAB related key bindings... [{
-" mapping Alt + [1-0] to tab# [1-10]...
-" nnoremap <M-1>   1gt
-" nnoremap <C-[>2   2gt
-" nnoremap <C-[>3   3gt
-" nnoremap <C-[>4   4gt
-" nnoremap <C-[>5   5gt
-" nnoremap <C-[>6   6gt
-" nnoremap <C-[>7   7gt
-" nnoremap <C-[>8   8gt
-" nnoremap <C-[>9   9gt
-" nnoremap <C-[>0   10gt
-" mapping Ctrl-[ to tabprev and Ctrl-] to tabnext...
-" nnoremap <C-[>[   :tabprevious<CR>
-" nnoremap <C-[>]   :tabnext<CR>
-" }]
 
 call pathogen#infect()
 call pathogen#helptags()
@@ -33,11 +18,15 @@ filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 syntax on             " Enable syntax highlighting
 
-set omnifunc=syntaxcomplete#Complete
-
 if !has('gui_running')
     set t_Co=256
 endif
+
+" Screen's eccentric Ctrl-Arrow sequences
+map <ESC>O5D <C-Left>
+map <ESC>O5C <C-Right>
+map! <ESC>O5D <C-Left>
+map! <ESC>O5C <C-Right>
 
 "key mapping for gundo...
 noremap <F5> :GundoToggle<CR>
@@ -78,6 +67,13 @@ let g:lightline = {
     \       'active': {
     \           'left': [   
     \                       [ 'mode', 'paste' ],
+    \                       [ 'fugitive', 'readonly', 'filename', 'modified' ]
+    \                   ]
+    \       },
+    \   
+    \       'inactive': {
+    \           'left': [   
+    \                       [ ],
     \                       [ 'fugitive', 'readonly', 'filename', 'modified' ]
     \                   ]
     \       },
@@ -124,8 +120,7 @@ let g:session_default_name = '.session'
 let g:session_autoload = 'yes'
 
 " autosave if session file is present...
-" As of now, this option saves the session even if there is no session open...
-" let g:session_autosave = 'yes'
+let g:session_autosave = 'no'
 " }]
 
 " TABLINE [{
@@ -174,9 +169,10 @@ if exists("+showtabline")
         let s .= '%T%#TabLineFill#%='
         return s
     endfunction
-    set stal=2
     set tabline=%!MyTabLine()
 endif
+
+set showtabline=1   " disabling tabline (switching to using buffers instead)
 
 set tabpagemax=15
 hi TabLineSel term=bold cterm=bold ctermfg=16 ctermbg=229
@@ -225,9 +221,87 @@ command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 function RefreshCscope(...)
     let l:find_args = ". -iname '*." . join(a:000, "' -o -iname '*.") . "'"
     echom l:find_args
+    !rm cscope.*
     execute "!find" l:find_args '> cscope.files'
     !cscope -b -q
+    cs kill -1
     cs add cscope.out
 endfunction
 
 command -bar -nargs=* RefCs call RefreshCscope(<f-args>)
+
+" MINIBUFEXPL settings... [{
+" disable by default
+let g:miniBufExplorerAutoStart = 0
+" }]
+
+" MiniBufExpl Settings [{
+" Map for open, close, focus and toggle...
+nnoremap <Leader>o  :MBEOpen<CR>
+nnoremap <Leader>c  :MBEClose<CR>
+nnoremap <Leader>f  :MBEFocus<CR>
+nnoremap <Leader>t  :MBEToggle<CR>
+
+" for buffer navigation (goto, next, previous, forward and backward buffer)
+function! GotoBuffer()
+    let l:c = v:count
+    if l:c
+        execute "buffer " . l:c
+    else
+        MBEbn
+    endif
+endfunction
+
+" <num>bg to jump to <num>th buffer
+" bg to ro to next buffer
+" bG to go to previous buffer
+nnoremap bg     :<C-U>call GotoBuffer()<CR>
+nnoremap bG     :MBEbp<CR>
+nnoremap bf     :MBEbf<CR>
+nnoremap bF     :MBEbb<CR>
+
+" for buffer cleanup
+function! DeleteBuffer()
+    let l:c = v:count
+    if l:c
+        execute "MBEbd " . l:c
+    else
+        MBEbd
+    endif
+endfunction
+
+function! WipeoutBuffer()
+    let l:c = v:count
+    if l:c
+        execute "MBEbw " . l:c
+    else
+        MBEbw
+    endif
+endfunction
+
+function! UnloadBuffer()
+    let l:c = v:count
+    if l:c
+        execute "MBEbu " . l:c
+    else
+        MBEbu
+    endif
+endfunction
+
+noremap bd      :<C-U>call DeleteBuffer()<CR>
+noremap bw      :<C-U>call WipeoutBuffer()<CR>
+noremap bu      :<C-U>call UnloadBuffer()<CR>
+
+" Open veritical window...
+let g:miniBufExplVSplit = 30
+let g:miniBufExplMaxSize = 50
+let g:miniBufExplMinSize = 30
+
+" better highlights in MBE explorer window
+hi MBENormal                                                            ctermfg=14  guifg=#80a0ff
+hi MBECHanged                                                           ctermfg=224 guifg=Orange
+hi MBEVisibleNormal         term=underline      cterm=underline         ctermfg=81  guifg=#ff80ff
+hi MBEVisibleChanged        term=underline      cterm=underline         ctermfg=224 guifg=Orange
+hi MBEVisibleActiveNormal   term=bold,underline cterm=bold,underline    ctermfg=81  guifg=#ff80ff
+hi MBEVisibleActiveChanged  term=bold,underline cterm=bold,underline    ctermfg=224 guifg=Orange
+" }]

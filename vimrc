@@ -10,6 +10,11 @@ set hidden                                  " allow hidden buffers
 
 filetype off    " apparently, needed before calling pathogen#infect()
 
+" set term when invoked from screen
+if &term == "screen"
+    :set term=xterm
+endif
+
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -305,3 +310,4 @@ hi MBEVisibleChanged        term=underline      cterm=underline         ctermfg=
 hi MBEVisibleActiveNormal   term=bold,underline cterm=bold,underline    ctermfg=81  guifg=#ff80ff
 hi MBEVisibleActiveChanged  term=bold,underline cterm=bold,underline    ctermfg=224 guifg=Orange
 " }]
+

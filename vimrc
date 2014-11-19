@@ -64,6 +64,8 @@ let g:indentLine_color_term=245
 
 " LIGHTLINE settings... [{
 let g:lightline = {
+    \       'colorscheme' : 'wombat',
+    \
     \       'enable' : {
     \           'statusline': 1,
     \           'tabline': 0

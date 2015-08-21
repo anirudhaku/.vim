@@ -51,3 +51,6 @@
 [submodule "bundle/vim-tmux"]
 	path = bundle/vim-tmux
 	url = git@github.com:tmux-plugins/vim-tmux.git
+[submodule "bundle/vim-mercenary"]
+	path = bundle/vim-mercenary
+	url = git@github.com:jlfwong/vim-mercenary.git

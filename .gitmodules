@@ -48,3 +48,6 @@
 [submodule "bundle/CCTree"]
 	path = bundle/CCTree
 	url = git@github.com:vim-scripts/CCTree.git
+[submodule "bundle/vim-tmux"]
+	path = bundle/vim-tmux
+	url = git@github.com:tmux-plugins/vim-tmux.git

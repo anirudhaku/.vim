@@ -15,6 +15,9 @@ if &term == "screen"
     :set term=xterm
 endif
 
+" ignore YCM on this machine [CentOS :(]
+let g:pathogen_disabled = ['YouCompleteMe']
+
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -313,3 +316,8 @@ hi MBEVisibleActiveNormal   term=bold,underline cterm=bold,underline    ctermfg=
 hi MBEVisibleActiveChanged  term=bold,underline cterm=bold,underline    ctermfg=224 guifg=Orange
 " }]
 
+" CCTree: load cscope.out on startup, if available {[
+" if filereadable('cscope.out')
+"     autocmd VimEnter * CCTreeLoadDB cscope.out
+" endif
+" }]

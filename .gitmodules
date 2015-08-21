@@ -45,3 +45,6 @@
 [submodule "bundle/vim-plugin-minibufexpl"]
 	path = bundle/vim-plugin-minibufexpl
 	url = https://github.com/techlivezheng/vim-plugin-minibufexpl.git
+[submodule "bundle/CCTree"]
+	path = bundle/CCTree
+	url = git@github.com:vim-scripts/CCTree.git

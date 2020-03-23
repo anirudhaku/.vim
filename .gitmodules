@@ -23,12 +23,9 @@
 [submodule "bundle/tern_for_vim"]
 	path = bundle/tern_for_vim
 	url = https://github.com/marijnh/tern_for_vim.git
-[submodule "bundle/vim-json"]
-	path = bundle/vim-json
-	url = https://github.com/elzr/vim-json.git
 [submodule "bundle/vim-latex"]
 	path = bundle/vim-latex
-	url = git://git.code.sf.net/p/vim-latex/vim-latex
+	url = git@github.com:vim-latex/vim-latex.git
 [submodule "bundle/vim-misc"]
 	path = bundle/vim-misc
 	url = https://github.com/xolox/vim-misc.git
@@ -54,3 +51,35 @@
 [submodule "bundle/vim-mercenary"]
 	path = bundle/vim-mercenary
 	url = git@github.com:jlfwong/vim-mercenary.git
+[submodule "bundle/VimCalc"]
+	path = bundle/VimCalc
+	url = git@github.com:gregsexton/VimCalc.git
+[submodule "bundle/railscasts-theme"]
+	path = bundle/railscasts-theme
+	url = https://github.com/jpo/vim-railscasts-theme.git
+[submodule "bundle/jellybeans-theme"]
+	path = bundle/jellybeans-theme
+	url = https://github.com/nanotech/jellybeans.vim.git
+[submodule "bundle/github-theme"]
+	path = bundle/github-theme
+	url = https://github.com/endel/vim-github-colorscheme.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule "bundle/grep"]
+	path = bundle/grep
+	url = https://github.com/yegappan/grep.git
+[submodule "ZoomWin"]
+	path = ZoomWin
+	url = https://github.com/vim-scripts/ZoomWin.git
+	branch = master
+[submodule "bundle/ZoomWin"]
+	path = bundle/ZoomWin
+	url = https://github.com/vim-scripts/ZoomWin.git
+	branch = master
+[submodule "bundle/vim-zoom"]
+	path = bundle/vim-zoom
+	url = https://github.com/dhruvasagar/vim-zoom.git
+[submodule "bundle/DoxygenToolkit.vim"]
+	path = bundle/DoxygenToolkit.vim
+	url = https://github.com/vim-scripts/DoxygenToolkit.vim.git

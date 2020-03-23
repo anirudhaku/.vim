@@ -7,6 +7,10 @@ set expandtab                               " expand tabs to spaces
 set laststatus=2                            " always show status line
 set hlsearch                                " highlight search results
 set hidden                                  " allow hidden buffers
+set clipboard=exclude:.*                    " do not try to connect to X server for accessing clipboard
+set encoding=utf-8                          " fun fact: vim is basically a latin1 editor!
+set colorcolumn=97                          " highlight 97th column for coding convention
+
 
 filetype off    " apparently, needed before calling pathogen#infect()
 
@@ -15,7 +19,7 @@ if &term == "screen"
     :set term=xterm
 endif
 
-" ignore YCM on this machine [CentOS :(]
+" ignore YCM on this machine (too slow)
 let g:pathogen_disabled = ['YouCompleteMe']
 
 call pathogen#infect()
@@ -65,6 +69,9 @@ let g:tex_conceal = ""
 let g:indentLine_color_term=245
 " }]
 
+" Don't conceal at cursor, helps with JSON quotes.
+let g:indentLine_concealcursor = ""
+
 " LIGHTLINE settings... [{
 let g:lightline = {
     \       'colorscheme' : 'wombat',
@@ -78,7 +85,12 @@ let g:lightline = {
     \           'left': [   
     \                       [ 'mode', 'paste' ],
     \                       [ 'fugitive', 'readonly', 'filename', 'modified' ]
-    \                   ]
+    \                   ],
+    \           'right': [
+    \                       [ 'lineinfo' ],
+    \                       [ 'percent' ],
+    \                       [ 'fileformat', 'fileencoding', 'filetype', 'zoomstatus' ]
+    \                    ]
     \       },
     \   
     \       'inactive': {
@@ -87,10 +99,11 @@ let g:lightline = {
     \                       [ 'fugitive', 'readonly', 'filename', 'modified' ]
     \                   ]
     \       },
-    \   
+    \
     \       'component': {
     \           'readonly': '%{&readonly?"x":""}',
-    \           'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+    \           'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+    \           'zoomstatus': '%{zoom#statusline()}'
     \       },
     \   
     \       'separator': { 'left': "\u2592\u2591", 'right': "\u2591\u2592" },
@@ -100,7 +113,7 @@ let g:lightline = {
 " }]
 
 " YCM settings... [{
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 
 " disable YCM for tex files...
 let g:ycm_filetype_blacklist = {
@@ -116,7 +129,6 @@ let g:ycm_auto_trigger = 0
 
 " hide the annoying preview window after completion...
 let g:ycm_autoclose_preview_window_after_completion = 1
-
 " }]
 
 " VIM-SESSION settings... [{
@@ -229,7 +241,7 @@ command -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
 function RefreshCscope(...)
-    let l:find_args = ". -iname '*." . join(a:000, "' -o -iname '*.") . "'"
+    let l:find_args = ". -path \"./build*\" -o -path ./.tup -prune -o -iname '*." . join(a:000, "' -print -o -iname '*.") . "' -print"
     echom l:find_args
     !rm cscope.*
     execute "!find" l:find_args '> cscope.files'
@@ -247,8 +259,6 @@ let g:miniBufExplorerAutoStart = 0
 
 " MiniBufExpl Settings [{
 " Map for open, close, focus and toggle...
-nnoremap <Leader>o  :MBEOpen<CR>
-nnoremap <Leader>c  :MBEClose<CR>
 nnoremap <Leader>f  :MBEFocus<CR>
 nnoremap <Leader>t  :MBEToggle<CR>
 
@@ -301,6 +311,7 @@ endfunction
 noremap bd      :<C-U>call DeleteBuffer()<CR>
 noremap bw      :<C-U>call WipeoutBuffer()<CR>
 noremap bu      :<C-U>call UnloadBuffer()<CR>
+noremap bq      :<C-U>call WipeoutBuffer()<CR> <bar> :q<CR>
 
 " Open veritical window...
 let g:miniBufExplVSplit = 30
@@ -308,11 +319,11 @@ let g:miniBufExplMaxSize = 50
 let g:miniBufExplMinSize = 30
 
 " better highlights in MBE explorer window
-hi MBENormal                                                            ctermfg=14  guifg=#80a0ff
-hi MBECHanged                                                           ctermfg=224 guifg=Orange
-hi MBEVisibleNormal         term=underline      cterm=underline         ctermfg=81  guifg=#ff80ff
-hi MBEVisibleChanged        term=underline      cterm=underline         ctermfg=224 guifg=Orange
-hi MBEVisibleActiveNormal   term=bold,underline cterm=bold,underline    ctermfg=81  guifg=#ff80ff
+hi MBENormal                                                            ctermfg=038 guifg=#80a0ff
+hi MBECHanged                                                           ctermfg=210 guifg=Orange
+hi MBEVisibleNormal         term=bold,underline cterm=underline         ctermfg=038 guifg=#ff80ff
+hi MBEVisibleChanged        term=bold,underline cterm=underline         ctermfg=210 guifg=Orange
+hi MBEVisibleActiveNormal   term=bold,underline cterm=bold,underline    ctermfg=159 guifg=#ff80ff
 hi MBEVisibleActiveChanged  term=bold,underline cterm=bold,underline    ctermfg=224 guifg=Orange
 " }]
 
@@ -320,4 +331,48 @@ hi MBEVisibleActiveChanged  term=bold,underline cterm=bold,underline    ctermfg=
 " if filereadable('cscope.out')
 "     autocmd VimEnter * CCTreeLoadDB cscope.out
 " endif
+" }]
+
+" VimCalc configurations [{
+" open VimCalc on right side
+let g:VCalc_WindowPosition = 'right'
+" default size (10) is too small
+let g:VCalc_Win_Size = 20
+" open calc with <Leader>C (\C)
+nnoremap <Leader>C  :Calc<CR>
+" }]
+
+" change color scheme for diff instances (default is toooooooooooo loud) [{
+if &diff
+    colorscheme railscasts
+endif
+" }]
+
+" Miscellaneous [{
+" Misc highlight groups
+hi MiscLineHighlight    ctermfg=0 ctermbg=121 guibg=LightGreen
+
+" Highlight current line
+nnoremap <Leader>h :call matchadd("MiscLineHighlight", '\%'.line('.').'l')<CR>
+nnoremap <Leader>v :call matchadd("MiscLineHighlight", '\%'.virtcol('.').'v')<CR>
+nnoremap <Leader>c :call clearmatches()<CR>
+" }]
+
+" vim-zoom settings [{
+function ZoomMBE()
+    MBEToggle
+    echo "toggle"
+    call zoom#toggle()
+    echo "zoom"
+    MBEToggle
+    echo "toggle"
+endfunction
+
+" Toogle MBE before zoom otherwise MBE events stop working.
+nnoremap <C-W>z :call ZoomMBE()<CR>
+" }]
+
+" Doxygen [{
+" Start the comments with /*!
+let DoxygenToolkit_startCommentTag="/*!"
 " }]

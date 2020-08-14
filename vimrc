@@ -10,6 +10,7 @@ set hidden                                  " allow hidden buffers
 set clipboard=exclude:.*                    " do not try to connect to X server for accessing clipboard
 set encoding=utf-8                          " fun fact: vim is basically a latin1 editor!
 set colorcolumn=97                          " highlight 97th column for coding convention
+highlight ColorColumn ctermbg=8 guibg=DimGray
 
 
 filetype off    " apparently, needed before calling pathogen#infect()

@@ -7,29 +7,20 @@ set expandtab                               " expand tabs to spaces
 set laststatus=2                            " always show status line
 set hlsearch                                " highlight search results
 set hidden                                  " allow hidden buffers
-set clipboard=exclude:.*                    " do not try to connect to X server for accessing clipboard
+"set clipboard=exclude:.*                    " do not try to connect to X server for accessing clipboard
 set encoding=utf-8                          " fun fact: vim is basically a latin1 editor!
 set colorcolumn=97                          " highlight 97th column for coding convention
 highlight ColorColumn ctermbg=8 guibg=DimGray
-
-
-filetype off    " apparently, needed before calling pathogen#infect()
-
-" set term when invoked from screen
-if &term == "screen"
-    :set term=xterm
-endif
-
-" ignore YCM on this machine (too slow)
-let g:pathogen_disabled = ['YouCompleteMe']
-
-call pathogen#infect()
-call pathogen#helptags()
 
 filetype on           " Enable filetype detection
 filetype indent on    " Enable filetype-specific indenting
 filetype plugin on    " Enable filetype-specific plugins
 syntax on             " Enable syntax highlighting
+
+" set term when invoked from screen
+if &term == "screen"
+    :set term=xterm
+endif
 
 if !has('gui_running')
     set t_Co=256
@@ -103,7 +94,7 @@ let g:lightline = {
     \
     \       'component': {
     \           'readonly': '%{&readonly?"x":""}',
-    \           'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}',
+    \           'fugitive': '%{exists("*FugitiveHead")?FugitiveHead():""}',
     \           'zoomstatus': '%{zoom#statusline()}'
     \       },
     \   
@@ -114,8 +105,6 @@ let g:lightline = {
 " }]
 
 " YCM settings... [{
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
 " disable YCM for tex files...
 let g:ycm_filetype_blacklist = {
     \       'tex' : 1,
@@ -123,7 +112,7 @@ let g:ycm_filetype_blacklist = {
     \   }
 
 " Mapping F12 to GoTo...
-noremap <F12>   :YcmCompleter GoTo<CR>
+noremap <leader>d   :YcmCompleter GoTo<CR>
 
 " disable auto completer (complete on <C-space>)...
 let g:ycm_auto_trigger = 0
@@ -216,11 +205,7 @@ aug CSV_Editing
 aug end
 " }]
 
-" VIM-JSON settings... [{
-" disable concealing (its an irritating feature)...
-let g:vim_json_syntax_conceal = 0
-" }]
-
+" Spaces@EOL... [{
 function ShowSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
   let oldhlsearch=&hlsearch
@@ -252,6 +237,7 @@ function RefreshCscope(...)
 endfunction
 
 command -bar -nargs=* RefCs call RefreshCscope(<f-args>)
+" }]
 
 " MINIBUFEXPL settings... [{
 " disable by default
@@ -370,10 +356,44 @@ function ZoomMBE()
 endfunction
 
 " Toogle MBE before zoom otherwise MBE events stop working.
-nnoremap <C-W>z :call ZoomMBE()<CR>
+" nnoremap <C-W>z :call ZoomMBE()<CR>
 " }]
 
 " Doxygen [{
 " Start the comments with /*!
 let DoxygenToolkit_startCommentTag="/*!"
+" }]
+
+" ZoomWin [{
+function MyZoomWin()
+    MBEToggle
+    echo "toggle"
+    ZoomWin
+    echo "zoom"
+    MBEToggle
+    echo "toggle"
+endfunction
+
+" set mapping
+nnoremap <silent> <C-w>z :ZoomWin<CR>
+" }]
+
+" MultipleSearch settings [{
+let g:MultipleSearchMaxColors = 8
+let g:MultipleSearchColorSequence = "red,blue,green,magenta,cyan,gray,brown"
+let g:MultipleSearchTextColorSequence = "black,white,black,black,black,black,white"
+" }]
+
+" Don't conceal JSON [{
+let g:vim_json_conceal = 0
+" }]
+
+" Use vim-jsonc for JSON [{
+autocmd BufNewFile,BufRead *.json set syntax=jsonc
+" }]
+
+" Use 2-space indentation in JSON [{
+autocmd BufNewFile,BufRead *.json setlocal shiftwidth=2
+autocmd BufNewFile,BufRead *.json setlocal tabstop=2
+autocmd BufNewFile,BufRead *.json setlocal softtabstop=2
 " }]

@@ -2,87 +2,99 @@
 	path = vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
 [submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
+	path = pack/vim-fugitive/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "bundle/YouCompleteMe"]
-	path = bundle/YouCompleteMe
+	path = pack/YouCompleteMe/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/YouCompleteMe"]
+	path = pack/YouCompleteMe/opt/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule "bundle/indentLine"]
-	path = bundle/indentLine
+	path = pack/indentLine/start/indentLine
     url = https://github.com/Yggdroot/indentLine.git
     ignore = dirty
 [submodule "bundle/vim-endwise"]
-	path = bundle/vim-endwise
+	path = pack/vim-endwise/start/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
 [submodule "bundle/lightline.vim"]
-	path = bundle/lightline.vim
+	path = pack/lightline.vim/start/lightline.vim
 	url = https://github.com/itchyny/lightline.vim.git
 [submodule "bundle/mru"]
-	path = bundle/mru
+	path = pack/mru/start/mru
 	url = https://github.com/yegappan/mru.git
 [submodule "bundle/tern_for_vim"]
-	path = bundle/tern_for_vim
+	path = pack/tern_for_vim/start/tern_for_vim
 	url = https://github.com/marijnh/tern_for_vim.git
 [submodule "bundle/vim-latex"]
-	path = bundle/vim-latex
+	path = pack/vim-latex/start/vim-latex
 	url = git@github.com:vim-latex/vim-latex.git
 [submodule "bundle/vim-misc"]
-	path = bundle/vim-misc
+	path = pack/vim-misc/start/vim-misc
 	url = https://github.com/xolox/vim-misc.git
 [submodule "bundle/vim-ruby"]
-	path = bundle/vim-ruby
+	path = pack/vim-ruby/start/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
     ignore = dirty
 [submodule "bundle/vim-session"]
-	path = bundle/vim-session
+	path = pack/vim-session/start/vim-session
 	url = https://github.com/xolox/vim-session.git
 [submodule "bundle/gundo.vim"]
-	path = bundle/gundo.vim
+	path = pack/gundo.vim/start/gundo.vim
 	url = https://github.com/sjl/gundo.vim.git
 [submodule "bundle/vim-plugin-minibufexpl"]
-	path = bundle/vim-plugin-minibufexpl
+	path = pack/vim-plugin-minibufexpl/start/vim-plugin-minibufexpl
 	url = https://github.com/techlivezheng/vim-plugin-minibufexpl.git
 [submodule "bundle/CCTree"]
-	path = bundle/CCTree
+	path = pack/CCTree/start/CCTree
 	url = git@github.com:vim-scripts/CCTree.git
 [submodule "bundle/vim-tmux"]
-	path = bundle/vim-tmux
+	path = pack/vim-tmux/start/vim-tmux
 	url = git@github.com:tmux-plugins/vim-tmux.git
 [submodule "bundle/vim-mercenary"]
-	path = bundle/vim-mercenary
+	path = pack/vim-mercenary/start/vim-mercenary
 	url = git@github.com:jlfwong/vim-mercenary.git
 [submodule "bundle/VimCalc"]
-	path = bundle/VimCalc
+	path = pack/VimCalc/start/VimCalc
 	url = git@github.com:gregsexton/VimCalc.git
 [submodule "bundle/railscasts-theme"]
-	path = bundle/railscasts-theme
+	path = pack/railscasts-theme/start/railscasts-theme
 	url = https://github.com/jpo/vim-railscasts-theme.git
 [submodule "bundle/jellybeans-theme"]
-	path = bundle/jellybeans-theme
+	path = pack/jellybeans-theme/start/jellybeans-theme
 	url = https://github.com/nanotech/jellybeans.vim.git
 [submodule "bundle/github-theme"]
-	path = bundle/github-theme
+	path = pack/github-theme/start/github-theme
 	url = https://github.com/endel/vim-github-colorscheme.git
 [submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
+	path = pack/nerdtree/start/nerdtree
 	url = git@github.com:scrooloose/nerdtree.git
 [submodule "bundle/grep"]
-	path = bundle/grep
+	path = pack/grep/start/grep
 	url = https://github.com/yegappan/grep.git
 [submodule "ZoomWin"]
 	path = ZoomWin
 	url = https://github.com/vim-scripts/ZoomWin.git
 	branch = master
 [submodule "bundle/ZoomWin"]
-	path = bundle/ZoomWin
+	path = pack/ZoomWin/start/ZoomWin
 	url = https://github.com/vim-scripts/ZoomWin.git
 	branch = master
 [submodule "bundle/vim-zoom"]
-	path = bundle/vim-zoom
+	path = pack/vim-zoom/start/vim-zoom
 	url = https://github.com/dhruvasagar/vim-zoom.git
 [submodule "bundle/DoxygenToolkit.vim"]
-	path = bundle/DoxygenToolkit.vim
+	path = pack/DoxygenToolkit.vim/start/DoxygenToolkit.vim
 	url = https://github.com/vim-scripts/DoxygenToolkit.vim.git
 [submodule "bundle/splice"]
-	path = bundle/splice
+	path = pack/splice/start/splice
 	url = https://github.com/sjl/splice.vim.git
+[submodule "bundle/YCM-Generator"]
+	path = pack/YCM-Generator/start/YCM-Generator
+	url = https://github.com/rdnetto/YCM-Generator.git
+[submodule "bundle/vim-jsonc"]
+	path = pack/vim-jsonc/start/vim-jsonc
+	url = https://github.com/kevinoid/vim-jsonc.git
+[submodule "pack/YouCompleteMe/start/YouCompleteMe"]
+	path = pack/YouCompleteMe/start/YouCompleteMe
+	url = https://github.com/ycm-core/YouCompleteMe.git
